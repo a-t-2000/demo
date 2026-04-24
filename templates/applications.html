@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Заявки</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<h2>Мои заявки</h2>
+
+<form method="POST" action="/create_application">
+    <input type="text" name="course_name" placeholder="Название курса" required><br><br>
+
+    <input type="date" name="start_date" required><br><br>
+
+    <select name="payment_method" required>
+        <option value="">Выберите способ оплаты</option>
+        <option value="Наличные">Наличные</option>
+        <option value="Перевод">Перевод</option>
+    </select><br><br>
+
+    <button type="submit">Создать заявку</button>
+</form>
+
+<hr>
+
+<h3>Список заявок</h3>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Курс</th>
+        <th>Дата</th>
+        <th>Оплата</th>
+        <th>Статус</th>
+        <th>Отзыв</th>
+    </tr>
+
+    {% for app in applications %}
+    <tr>
+        <td>{{ app[0] }}</td>
+        <td>{{ app[1] }}</td>
+        <td>{{ app[2] }}</td>
+        <td>{{ app[3] }}</td>
+        <td>{{ app[4] }}</td>
+        <td>
+            {% if app[5] %}
+                {{ app[5] }}
+            {% elif app[4] == 'Обучение завершено' %}
+                <form method="POST" action="/add_review">
+                    <input type="hidden" name="application_id" value="{{ app[0] }}">
+                    <input type="text" name="review" placeholder="Отзыв" required>
+                    <button type="submit">Сохранить</button>
+                </form>
+            {% else %}
+                Отзыв доступен после завершения обучения
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<br>
+<a href="/logout">Выйти</a>
+
+</body>
+</html>

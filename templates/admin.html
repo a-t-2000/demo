@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Админка</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<h2>Админка</h2>
+
+<h3>Все заявки</h3>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Фамилия</th>
+        <th>Имя</th>
+        <th>Курс</th>
+        <th>Дата</th>
+        <th>Оплата</th>
+        <th>Статус</th>
+        <th>Изменить</th>
+    </tr>
+
+    {% for app in applications %}
+    <tr>
+        <td>{{ app[0] }}</td>
+        <td>{{ app[1] }}</td>
+        <td>{{ app[2] }}</td>
+        <td>{{ app[3] }}</td>
+        <td>{{ app[4] }}</td>
+        <td>{{ app[5] }}</td>
+        <td>{{ app[7] }}</td>
+        <td>
+            <form method="POST" action="/update_status">
+                <input type="hidden" name="application_id" value="{{ app[0] }}">
+                <select name="id_status">
+                    <option value="1" {% if app[6] == 1 %}selected{% endif %}>Новая</option>
+                    <option value="2" {% if app[6] == 2 %}selected{% endif %}>Идет обучение</option>
+                    <option value="3" {% if app[6] == 3 %}selected{% endif %}>Обучение завершено</option>
+                </select>
+                <button type="submit">Сохранить</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<hr>
+
+<h3>Пользователи</h3>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Фамилия</th>
+        <th>Имя</th>
+        <th>Логин</th>
+        <th>Удалить</th>
+    </tr>
+
+    {% for user in users %}
+    <tr>
+        <td>{{ user[0] }}</td>
+        <td>{{ user[1] }}</td>
+        <td>{{ user[2] }}</td>
+        <td>{{ user[3] }}</td>
+        <td>
+            <form method="POST" action="/delete_user" style="display:inline;">
+                <input type="hidden" name="user_id" value="{{ user[0] }}">
+                <button type="submit">✖</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<br>
+<a href="/logout">Выйти</a>
+
+</body>
+</html>

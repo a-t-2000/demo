@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<h2>Регистрация</h2>
+
+<form method="POST" action="/register_user">
+    <input type="text" name="last_name" placeholder="Фамилия" required pattern="[А-Яа-яЁё]+"><br><br>
+
+    <input type="text" name="first_name" placeholder="Имя" required pattern="[А-Яа-яЁё]+"><br><br>
+
+    <input type="text" name="middle_name" placeholder="Отчество" pattern="[А-Яа-яЁё]*"><br><br>
+
+    <input type="text" name="login" placeholder="Логин" required minlength="6"><br><br>
+
+    <input type="password" name="password" placeholder="Пароль" required minlength="8"><br><br>
+
+    <input type="text" name="phone" placeholder="Введите телефон" required pattern="8[0-9]{10}"><br><br>
+
+    <input type="email" name="email" placeholder="Email" required><br><br>
+
+    <button type="submit">Зарегистрироваться</button>
+</form>
+
+<a href="/">Назад</a>
+
+</body>
+</html>
