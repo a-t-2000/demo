@@ -6,10 +6,35 @@
 </head>
 <body>
 
+<div class="header">
+    <h1>Корочки.есть</h1>
+</div>
+
 <h2>Мои заявки</h2>
 
+<div class="slider">
+    <img src="{{ url_for('static', filename='images/slide1.jpg') }}" class="slide active">
+    <img src="{{ url_for('static', filename='images/slide2.jpg') }}" class="slide">
+    <img src="{{ url_for('static', filename='images/slide3.jpg') }}" class="slide">
+    <img src="{{ url_for('static', filename='images/slide4.jpg') }}" class="slide">
+
+    <button type="button" class="prev" onclick="prevSlide()">‹</button>
+    <button type="button" class="next" onclick="nextSlide()">›</button>
+</div>
+
 <form method="POST" action="/create_application">
-    <input type="text" name="course_name" placeholder="Название курса" required><br><br>
+    <select name="course_name" required>
+        <option value="">Выберите курс</option>
+        <option value="Основы алгоритмизации и программирования">
+            Основы алгоритмизации и программирования
+        </option>
+        <option value="Основы веб-дизайна">
+            Основы веб-дизайна
+        </option>
+        <option value="Основы проектирования баз данных">
+            Основы проектирования баз данных
+        </option>
+    </select><br><br>
 
     <input type="date" name="start_date" required><br><br>
 
@@ -62,6 +87,8 @@
 
 <br>
 <a href="/logout">Выйти</a>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </body>
 </html>
